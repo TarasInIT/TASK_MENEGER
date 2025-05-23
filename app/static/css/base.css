@@ -1,0 +1,78 @@
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #343a40;
+  color: #fff;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  color: #adb5bd;
+  padding: 10px 20px;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  background-color: #495057;
+  color: #fff;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 240px;
+  right: 0;
+  height: 60px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1030;
+}
+
+.content {
+  margin-left: 240px;
+  padding-top: 80px;
+  padding: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.task-card {
+  transition: all 0.3s ease-in-out;
+  min-height: 160px;
+  margin-bottom: 5px;
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.task-card .card-body {
+  padding: 15px;
+}
+
+.task-card .card-title {
+  font-size: 1.3rem;
+}
+
+.task-card .small {
+  font-size: 0.8rem;
+}

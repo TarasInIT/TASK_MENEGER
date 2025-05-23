@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Manager для команд — Добро пожаловать{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="container py-5">
+
+  {% if current_user.is_authenticated %}
+    <div class="text-center">
+      <h2 class="mb-4">Привет, {{ current_user.username }}!</h2>
+      <p class="lead text-secondary">Рад видеть вас снова. Перейдите к своим задачам, чтобы продолжить работу.</p>
+    </div>
+  {% else %}
+    <div class="row align-items-center">
+      <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
+        <h1 class="display-5 fw-bold">Task Manager</h1>
+          <h1 class="display-5 fw-bold">для вашей команды</h1>
+        <p class="fs-5 text-muted">Планируйте. Делегируйте. Достигайте целей вместе.</p>
+        <p>Удобный инструмент для руководителей и команд. Создавайте задачи, распределяйте их между сотрудниками, контролируйте выполнение и оптимизируйте рабочие процессы в реальном времени.</p>
+        <div class="mt-4">
+          <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary me-2">Войти</a>
+          <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Зарегистрироваться</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row text-center g-4">
+          <div class="col-4">
+            <div class="p-3 border rounded">
+              <i class="bi bi-list-task fs-1 text-primary mb-2"></i>
+              <h6 class="mb-0">Контроль задач</h6>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="p-3 border rounded">
+              <i class="bi bi-bar-chart-line fs-1 text-primary mb-2"></i>
+              <h6 class="mb-0">Прозрачные процессы</h6>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="p-3 border rounded">
+              <i class="bi bi-people fs-1 text-primary mb-2"></i>
+              <h6 class="mb-0">Командная работа</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+</main>
+
+{% if not current_user.is_authenticated %}
+<footer class="bg-light text-center py-3 mt-auto">
+  <small class="text-muted">© 2025 Task Manager. Создано для команд, стремящихся к большему.</small>
+</footer>
+{% endif %}
+{% endblock %}

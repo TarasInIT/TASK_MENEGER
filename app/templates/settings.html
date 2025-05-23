@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Налаштування профілю{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Налаштування профілю</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.surname.label(class="form-label") }}
+            {{ form.surname(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.position.label(class="form-label") }}
+            {{ form.position(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.phone.label(class="form-label") }}
+            {{ form.phone(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.avatar.label(class="form-label") }}
+            {{ form.avatar(class="form-control") }}
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Аватар:</label><br>
+            {% if current_user.avatar and current_user.avatar != 'default.png' %}
+                <img src="{{ url_for('static', filename='avatars/' ~ current_user.avatar) }}"
+                     alt="Аватар"
+                     class="img-thumbnail" style="max-width: 150px;">
+            {% else %}
+                <div class="border rounded d-inline-block" style="width: 100px; height: 100px;">
+                    {{ generate_initials_avatar(current_user.username) | safe }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            {{ form.submit.label.text }}
+        </button>
+    </form>
+</div>
+{% endblock %}
