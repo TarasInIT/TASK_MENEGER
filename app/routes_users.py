@@ -1,4 +1,3 @@
-# routes_users.py
 import uuid
 import os
 from flask import Blueprint, render_template, flash, redirect, url_for, request
@@ -6,7 +5,6 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from app import db
 from app.forms import ProfileForm
-
 
 profile = Blueprint('profile', __name__)
 
@@ -22,14 +20,12 @@ def edit_profile():
         current_user.phone = form.phone.data
 
         if form.avatar.data:
-            # Удалить старый аватар
             old_avatar = current_user.avatar
             if old_avatar and old_avatar != 'default.png':
                 old_path = os.path.join('app/static/avatars', old_avatar)
                 if os.path.exists(old_path):
                     os.remove(old_path)
 
-            # Сохранить новый аватар
             avatar_filename = secure_filename(form.avatar.data.filename)
             unique_filename = f"{uuid.uuid4().hex}_{avatar_filename}"
             avatar_path = os.path.join('app/static/avatars', unique_filename)

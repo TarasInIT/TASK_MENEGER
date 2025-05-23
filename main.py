@@ -1,4 +1,3 @@
-# main.py
 import os
 from dotenv import load_dotenv
 from app import create_app, db
@@ -34,5 +33,3 @@ if __name__ == '__main__':
     app.run(debug=True)
 
     admin_chat_id = os.getenv('ALLOWED_CHAT_IDS')
-
-

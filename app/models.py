@@ -18,9 +18,7 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable=True)
     avatar = db.Column(db.String(120), nullable=True)
 
-    # Авторизованные задачи
     authored_tasks = db.relationship('Task', back_populates='creator', foreign_keys='Task.user_id')
-    # Призначенные задачи
     assigned_tasks = db.relationship('Task', back_populates='assignee', foreign_keys='Task.assignee_id')
 
     def set_password(self, password):
@@ -38,11 +36,9 @@ class Task(db.Model):
     deadline = db.Column(db.DateTime, nullable=True)
     description = db.Column(db.String(500), nullable=True)
 
-    # Автор
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     creator = db.relationship('User', back_populates='authored_tasks', foreign_keys=[user_id])
 
-    # Виконавець
     assignee_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     assignee = db.relationship('User', back_populates='assigned_tasks', foreign_keys=[assignee_id])
 

@@ -17,7 +17,6 @@ def tasks_list():
     filter_status = request.args.get('status', 'all')
     user_id = request.args.get('user_id', type=int)
 
-    # Формуємо запит
     if current_user.email == os.getenv('ADMIN_EMAIL') or current_user.is_admin:
         query = Task.query
         if user_id:
@@ -54,12 +53,10 @@ def create():
     deadline_raw = request.form.get('deadline')
     assignee_id = request.form.get('assignee_id', type=int)
 
-    # Просте валідоване title
     if not title:
         flash('Название задачи не может быть пустым.', 'danger')
         return redirect(url_for('tasks.tasks_list'))
 
-    # Парсимо дедлайн
     deadline = None
     if deadline_raw:
         try:
@@ -68,21 +65,16 @@ def create():
             flash('Неверный формат дедлайна.', 'danger')
             return redirect(url_for('tasks.tasks_list'))
 
-    # 1) Зберігаємо автора
     author_id = current_user.id
 
-    # 2) Зберігаємо одноособового виконавця
-    # (якщо адмiн обрав юзера – призначаємо, інакше None)
     valid_assignee_id = None
     if current_user.is_admin and assignee_id:
-        # опційно перевіряємо, що такий юзер існує
         if User.query.get(assignee_id):
             valid_assignee_id = assignee_id
         else:
             flash('Користувач не знайдений для призначення.', 'danger')
             return redirect(url_for('tasks.tasks_list'))
 
-    # Створюємо Task
     task = Task(
         title=title,
         description=description,
